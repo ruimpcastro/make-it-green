@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 
 const equipamentoInformaticoSchema = mongoose.Schema({
-  id_user: Integer,
   nome: String,
-  idadeEquipamento: String,
-  usoEquipamento: String,
-  EstadoEquipamento: String,
+  idade: String,
+  uso: String,
+  estado: String,
+  versionKey: false,
+  created: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model("Equipamento", equipamentoInformaticoSchema);

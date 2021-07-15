@@ -1,11 +1,12 @@
-const equipamentoInformatico = require("../models/equipamento");
+const Equipamento = require("../models/equipamento");
 
-module.exports = class EquipamentoInformatico {
+module.exports = class API {
   //GET all
   static async fetchAllEquipamento(req, res) {
     try {
-      const equipamento = await Equipamento.find();
-      res.status(200).json(equipamento);
+      const equipamentos = await Equipamento.find();
+      res.status(200).json(equipamentos);
+      console.log("GET", equipamentos);
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
@@ -16,7 +17,8 @@ module.exports = class EquipamentoInformatico {
     const id = req.params.id;
     try {
       const equipamento = await Equipamento.findById(id);
-      res.status(200).json(post);
+      res.status(200).json(equipamento);
+      console.log("ID", equipamento);
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
@@ -25,9 +27,11 @@ module.exports = class EquipamentoInformatico {
   // Create equipamento
   static async createEquipamento(req, res) {
     const equipamento = req.body;
+    console.log("CREATE", equipamento);
     try {
       await Equipamento.create(equipamento);
-      res.status(201).json({ message: "Post created successfully" });
+      console.log("CREATE", equipamento);
+      res.status(201).json({ message: "Equipamento created successfully " });
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
@@ -39,7 +43,7 @@ module.exports = class EquipamentoInformatico {
     const editEquipamento = req.body;
     try {
       await Equipamento.findByIdAndUpdate(id, editEquipamento);
-      es.status(200).json({ message: "Post updated successfully" });
+      es.status(200).json({ message: "Equipamento updated successfully" });
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
@@ -50,7 +54,7 @@ module.exports = class EquipamentoInformatico {
     const id = req.params.id;
     try {
       const result = await Equipamento.findByIdAndDelete(id);
-      res.status(200).json({ message: "Post deleted successfully" });
+      res.status(200).json({ message: "Equipamento deleted successfully" });
     } catch (err) {
       res.status(404).json({ message: err.message });
     }

@@ -1,10 +1,7 @@
-// imports
-
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const {MongoClient} = require('mongodb');
 
 const app = express();
 const port = process.env.PORT; // 5000;
@@ -16,12 +13,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("uploads"));
 
 // DB connection
-
-const uri = process.env.MONGODB_URI;
 mongoose
-  .connect(uri, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true, 
     useFindAndModify: true,
     useCreateIndex: true,
   })
@@ -33,5 +28,5 @@ app.use("/api/equipamento", require("./routes/routes"));
 
 //start server
 app.listen(port, () =>
-  console.log(`server running at http://localhost:${port}`)
+  console.log(`Server running at http://localhost:${port}`)
 );
